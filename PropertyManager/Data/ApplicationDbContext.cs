@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using PropertyManager.Models;
 
 namespace PropertyManager.Data
 {
@@ -13,7 +14,13 @@ namespace PropertyManager.Data
             : base(options)
         {
         }
-
+        public DbSet<Tenant> Tenants { get; set; }
+        public DbSet<Contractor> Contractors { get; set; }
+        public DbSet<Property> Properties { get; set; }
+        public DbSet<WorkOrder> WorkOrders { get; set; }
+        public DbSet<Complaint> Complaints { get; set; }
+        public DbSet<Admin> Admins { get; set; }
+        public DbSet<Analyst> Analysts { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
