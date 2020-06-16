@@ -59,9 +59,10 @@ namespace PropertyManager.Controllers
         // GET: Tenants/Create
         public IActionResult Create()
         {
+            var tenant = new Tenant();
             ViewData["IdentityUserId"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id");
             ViewData["PropertyId"] = new SelectList(_context.Set<Property>(), "Id", "Id");
-            return View();
+            return View(tenant);
         }
 
         // POST: Tenants/Create
@@ -73,6 +74,8 @@ namespace PropertyManager.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                tenant.IdentityUserId = userId;
                 _context.Add(tenant);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
