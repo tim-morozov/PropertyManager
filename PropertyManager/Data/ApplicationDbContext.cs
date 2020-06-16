@@ -17,15 +17,11 @@ namespace PropertyManager.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<IdentityRole>()
-            .HasData(
-            new IdentityRole
-            {
-                Name = "Admin",
-                NormalizedName = "ADMIN"
-            }
-            );
+            builder.Entity<IdentityRole>().HasData(new IdentityRole{ Name = "Admin", NormalizedName = "ADMIN"});
+            builder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Tenant", NormalizedName = "TENANT" });
+            builder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Contractor", NormalizedName = "CONTRACTOR" });
+            builder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Analyst", NormalizedName = "ANALYST" });
         }
     }
 }
-}
+
