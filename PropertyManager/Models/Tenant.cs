@@ -18,5 +18,8 @@ namespace PropertyManager.Models
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
+        [ForeignKey("Property")]
+        public int PropertyId { get; set; }
+        public Property Property { get; set; }
     }
 }
