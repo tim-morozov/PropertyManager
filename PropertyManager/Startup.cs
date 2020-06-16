@@ -47,7 +47,7 @@ namespace PropertyManager
                 config.Filters.Add(typeof(GlobalRouting));
             });
 
-            services.AddDbContext<PropertyManagerContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("PropertyManagerContext")));
         }
 

@@ -13,9 +13,9 @@ namespace PropertyManager.Controllers
 {
     public class TenantsController : Controller
     {
-        private readonly PropertyManagerContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public TenantsController(PropertyManagerContext context)
+        public TenantsController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace PropertyManager.Controllers
         // GET: Tenants
         public async Task<IActionResult> Index()
         {
-            var propertyManagerContext = _context.Tenant.Include(t => t.IdentityUser).Include(t => t.Property);
+            var propertyManagerContext = _context.Tenants.Include(t => t.IdentityUser).Include(t => t.Property);
             return View(await propertyManagerContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace PropertyManager.Controllers
                 return NotFound();
             }
 
-            var tenant = await _context.Tenant
+            var tenant = await _context.Tenants
                 .Include(t => t.IdentityUser)
                 .Include(t => t.Property)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -81,7 +81,7 @@ namespace PropertyManager.Controllers
                 return NotFound();
             }
 
-            var tenant = await _context.Tenant.FindAsync(id);
+            var tenant = await _context.Tenants.FindAsync(id);
             if (tenant == null)
             {
                 return NotFound();
@@ -136,7 +136,7 @@ namespace PropertyManager.Controllers
                 return NotFound();
             }
 
-            var tenant = await _context.Tenant
+            var tenant = await _context.Tenants
                 .Include(t => t.IdentityUser)
                 .Include(t => t.Property)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -153,15 +153,15 @@ namespace PropertyManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tenant = await _context.Tenant.FindAsync(id);
-            _context.Tenant.Remove(tenant);
+            var tenant = await _context.Tenants.FindAsync(id);
+            _context.Tenants.Remove(tenant);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TenantExists(int id)
         {
-            return _context.Tenant.Any(e => e.Id == id);
+            return _context.Tenants.Any(e => e.Id == id);
         }
     }
 }

@@ -13,9 +13,9 @@ namespace PropertyManager.Controllers
 {
     public class AnalystsController : Controller
     {
-        private readonly PropertyManagerContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public AnalystsController(PropertyManagerContext context)
+        public AnalystsController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace PropertyManager.Controllers
         // GET: Analysts
         public async Task<IActionResult> Index()
         {
-            var propertyManagerContext = _context.Analyst.Include(a => a.IdentityUser);
+            var propertyManagerContext = _context.Analysts.Include(a => a.IdentityUser);
             return View(await propertyManagerContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace PropertyManager.Controllers
                 return NotFound();
             }
 
-            var analyst = await _context.Analyst
+            var analyst = await _context.Analysts
                 .Include(a => a.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (analyst == null)
@@ -78,7 +78,7 @@ namespace PropertyManager.Controllers
                 return NotFound();
             }
 
-            var analyst = await _context.Analyst.FindAsync(id);
+            var analyst = await _context.Analysts.FindAsync(id);
             if (analyst == null)
             {
                 return NotFound();
@@ -131,7 +131,7 @@ namespace PropertyManager.Controllers
                 return NotFound();
             }
 
-            var analyst = await _context.Analyst
+            var analyst = await _context.Analysts
                 .Include(a => a.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (analyst == null)
@@ -147,15 +147,15 @@ namespace PropertyManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var analyst = await _context.Analyst.FindAsync(id);
-            _context.Analyst.Remove(analyst);
+            var analyst = await _context.Analysts.FindAsync(id);
+            _context.Analysts.Remove(analyst);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool AnalystExists(int id)
         {
-            return _context.Analyst.Any(e => e.Id == id);
+            return _context.Analysts.Any(e => e.Id == id);
         }
     }
 }

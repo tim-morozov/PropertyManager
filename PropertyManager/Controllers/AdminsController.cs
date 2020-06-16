@@ -13,9 +13,9 @@ namespace PropertyManager.Controllers
 {
     public class AdminsController : Controller
     {
-        private readonly PropertyManagerContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public AdminsController(PropertyManagerContext context)
+        public AdminsController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace PropertyManager.Controllers
         // GET: Admins
         public async Task<IActionResult> Index()
         {
-            var propertyManagerContext = _context.Admin.Include(a => a.IdentityUser);
+            var propertyManagerContext = _context.Admins.Include(a => a.IdentityUser);
             return View(await propertyManagerContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace PropertyManager.Controllers
                 return NotFound();
             }
 
-            var admin = await _context.Admin
+            var admin = await _context.Admins
                 .Include(a => a.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (admin == null)
@@ -78,7 +78,7 @@ namespace PropertyManager.Controllers
                 return NotFound();
             }
 
-            var admin = await _context.Admin.FindAsync(id);
+            var admin = await _context.Admins.FindAsync(id);
             if (admin == null)
             {
                 return NotFound();
@@ -131,7 +131,7 @@ namespace PropertyManager.Controllers
                 return NotFound();
             }
 
-            var admin = await _context.Admin
+            var admin = await _context.Admins
                 .Include(a => a.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (admin == null)
@@ -147,15 +147,15 @@ namespace PropertyManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var admin = await _context.Admin.FindAsync(id);
-            _context.Admin.Remove(admin);
+            var admin = await _context.Admins.FindAsync(id);
+            _context.Admins.Remove(admin);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool AdminExists(int id)
         {
-            return _context.Admin.Any(e => e.Id == id);
+            return _context.Admins.Any(e => e.Id == id);
         }
     }
 }

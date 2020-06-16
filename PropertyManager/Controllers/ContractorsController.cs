@@ -13,9 +13,9 @@ namespace PropertyManager.Controllers
 {
     public class ContractorsController : Controller
     {
-        private readonly PropertyManagerContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public ContractorsController(PropertyManagerContext context)
+        public ContractorsController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace PropertyManager.Controllers
         // GET: Contractors
         public async Task<IActionResult> Index()
         {
-            var propertyManagerContext = _context.Contractor.Include(c => c.IdentityUser);
+            var propertyManagerContext = _context.Contractors.Include(c => c.IdentityUser);
             return View(await propertyManagerContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace PropertyManager.Controllers
                 return NotFound();
             }
 
-            var contractor = await _context.Contractor
+            var contractor = await _context.Contractors
                 .Include(c => c.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (contractor == null)
@@ -78,7 +78,7 @@ namespace PropertyManager.Controllers
                 return NotFound();
             }
 
-            var contractor = await _context.Contractor.FindAsync(id);
+            var contractor = await _context.Contractors.FindAsync(id);
             if (contractor == null)
             {
                 return NotFound();
@@ -131,7 +131,7 @@ namespace PropertyManager.Controllers
                 return NotFound();
             }
 
-            var contractor = await _context.Contractor
+            var contractor = await _context.Contractors
                 .Include(c => c.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (contractor == null)
@@ -147,15 +147,15 @@ namespace PropertyManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var contractor = await _context.Contractor.FindAsync(id);
-            _context.Contractor.Remove(contractor);
+            var contractor = await _context.Contractors.FindAsync(id);
+            _context.Contractors.Remove(contractor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ContractorExists(int id)
         {
-            return _context.Contractor.Any(e => e.Id == id);
+            return _context.Contractors.Any(e => e.Id == id);
         }
     }
 }
