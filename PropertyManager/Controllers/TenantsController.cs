@@ -60,6 +60,12 @@ namespace PropertyManager.Controllers
         public IActionResult Create()
         {
             var tenant = new Tenant();
+            List<Property> propFromDb = _context.Properties.Select(p => p).ToList();
+            List<SelectListItem> properties = new List<SelectListItem>();
+            //foreach(var item in propFromDb)
+            //{
+            //    properties.Add(item);
+            //}
             ViewData["IdentityUserId"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id");
             ViewData["PropertyId"] = new SelectList(_context.Set<Property>(), "Id", "Id");
             return View(tenant);

@@ -17,7 +17,7 @@ namespace PropertyManager.ActionFilters
         }
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            throw new NotImplementedException();
+           
         }
 
         public void OnActionExecuting(ActionExecutingContext context)
@@ -28,22 +28,22 @@ namespace PropertyManager.ActionFilters
                 if (_claimsPrincipal.IsInRole("Admin"))
                 {
                     context.Result = new RedirectToActionResult("Index",
-                    "Admin", null);
+                    "Admins", null);
                 }
                 else if (_claimsPrincipal.IsInRole("Tenant"))
                 {
                     context.Result = new RedirectToActionResult("Index",
-                    "Tenant", null);
+                    "Tenants", null);
                 }
                 else if (_claimsPrincipal.IsInRole("Contractor"))
                 {
                     context.Result = new RedirectToActionResult("Index",
-                    "Contractor", null);
+                    "Contractors", null);
                 }
                 else if (_claimsPrincipal.IsInRole("Analyst"))
                 {
                     context.Result = new RedirectToActionResult("Index",
-                    "Analyst", null);
+                    "Analysts", null);
                 }
             }
 
