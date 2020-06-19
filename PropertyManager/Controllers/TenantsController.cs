@@ -60,14 +60,14 @@ namespace PropertyManager.Controllers
         public IActionResult Create()
         {
             var tenant = new Tenant();
-            List<Property> propFromDb = _context.Properties.Select(p => p).ToList();
-            List<SelectListItem> properties = new List<SelectListItem>();
+            List<Property> properties = _context.Properties.Select(p => p).ToList();
+           
             //foreach(var item in propFromDb)
             //{
             //    properties.Add(item);
             //}
             ViewData["IdentityUserId"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id");
-            ViewData["PropertyId"] = new SelectList(_context.Set<Property>(), "Id", "Id");
+            ViewData["Property"] = new SelectList(properties, "Id", "Address");
             return View(tenant);
         }
 
@@ -87,7 +87,7 @@ namespace PropertyManager.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id", tenant.IdentityUserId);
-            ViewData["PropertyId"] = new SelectList(_context.Set<Property>(), "Id", "Id", tenant.PropertyId);
+            ViewData["Property"] = new SelectList(_context.Set<Property>(), "Id", "Id", tenant.PropertyId);
             return View(tenant);
         }
 

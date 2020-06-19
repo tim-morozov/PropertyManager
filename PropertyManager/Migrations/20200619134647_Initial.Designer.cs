@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PropertyManager.Data;
 
-namespace PropertyManager.Data.Migrations
+namespace PropertyManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200616181224_SeedingProperties")]
-    partial class SeedingProperties
+    [Migration("20200619134647_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,29 +50,29 @@ namespace PropertyManager.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f169cb14-bb19-4392-a364-414cc040f1b0",
-                            ConcurrencyStamp = "a893d3f3-270a-45f6-a23e-fadabeb16318",
+                            Id = "3bdd11bf-3263-4af4-ab22-a17f12ef1de7",
+                            ConcurrencyStamp = "0855552a-f5a6-4b0b-b470-368c33e5f680",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "a52b4f31-9cba-47e5-bec5-23dc81a2fdd2",
-                            ConcurrencyStamp = "9f4b54ed-d51e-4f0d-8854-efd7765c1313",
+                            Id = "4b8500a0-466a-4755-aa0b-46cc1a0d4342",
+                            ConcurrencyStamp = "59737f24-534d-4116-b37d-950484a0f2b5",
                             Name = "Tenant",
                             NormalizedName = "TENANT"
                         },
                         new
                         {
-                            Id = "00b5039b-3118-41f2-a828-bc3c81815b8d",
-                            ConcurrencyStamp = "97e34ee6-21ff-447c-844d-097b96f40de9",
+                            Id = "ffd16c1a-76b6-4dbf-945a-13ef814c9653",
+                            ConcurrencyStamp = "5353c549-3dd4-489e-af7f-d2b7cb3731c4",
                             Name = "Contractor",
                             NormalizedName = "CONTRACTOR"
                         },
                         new
                         {
-                            Id = "cd2b6c75-f9fa-4288-8d4e-dc76abc20ef6",
-                            ConcurrencyStamp = "512d8bef-f294-4804-b9cc-e88bc799fdf0",
+                            Id = "8ef0b350-66a3-4ca0-a5f5-23543270da4a",
+                            ConcurrencyStamp = "6fcb8f71-de8d-4ab1-9bf8-60a436c9f2b9",
                             Name = "Analyst",
                             NormalizedName = "ANALYST"
                         });
@@ -457,6 +457,9 @@ namespace PropertyManager.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<double>("Balance")
+                        .HasColumnType("float");
+
                     b.Property<string>("IdentityUserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -468,9 +471,6 @@ namespace PropertyManager.Data.Migrations
 
                     b.Property<int>("PropertyId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ZipCode")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PropertyManager.Data;
 
-namespace PropertyManager.Data.Migrations
+namespace PropertyManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200617162401_RemovingZipCodeFromTenant")]
-    partial class RemovingZipCodeFromTenant
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,29 +48,29 @@ namespace PropertyManager.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ecaa67c3-1c8a-48a6-ac8a-675d875524bf",
-                            ConcurrencyStamp = "b71c78de-85f6-4945-8743-97a483299547",
+                            Id = "3bdd11bf-3263-4af4-ab22-a17f12ef1de7",
+                            ConcurrencyStamp = "0855552a-f5a6-4b0b-b470-368c33e5f680",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c4adb21d-bd28-4670-a7b2-2e99cd1b7ea6",
-                            ConcurrencyStamp = "5cb3a992-8861-4a22-8cb8-c6875c3b278d",
+                            Id = "4b8500a0-466a-4755-aa0b-46cc1a0d4342",
+                            ConcurrencyStamp = "59737f24-534d-4116-b37d-950484a0f2b5",
                             Name = "Tenant",
                             NormalizedName = "TENANT"
                         },
                         new
                         {
-                            Id = "19a207fc-d9ce-419a-9958-7867b47a5877",
-                            ConcurrencyStamp = "65f33b85-7b23-471b-9ae9-e9abed0cbbd4",
+                            Id = "ffd16c1a-76b6-4dbf-945a-13ef814c9653",
+                            ConcurrencyStamp = "5353c549-3dd4-489e-af7f-d2b7cb3731c4",
                             Name = "Contractor",
                             NormalizedName = "CONTRACTOR"
                         },
                         new
                         {
-                            Id = "04d68faa-bb1c-4469-b977-52f8ada8bee8",
-                            ConcurrencyStamp = "5fdda0e0-4832-40eb-9396-e3dd4253c4a5",
+                            Id = "8ef0b350-66a3-4ca0-a5f5-23543270da4a",
+                            ConcurrencyStamp = "6fcb8f71-de8d-4ab1-9bf8-60a436c9f2b9",
                             Name = "Analyst",
                             NormalizedName = "ANALYST"
                         });
