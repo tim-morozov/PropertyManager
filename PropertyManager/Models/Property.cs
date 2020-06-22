@@ -15,5 +15,7 @@ namespace PropertyManager.Models
         public string City { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
+        public double? lat { get; set; }
+        public double? lng { get; set; }
     }
 }

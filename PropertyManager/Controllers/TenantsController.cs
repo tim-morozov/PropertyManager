@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using PropertyManager.Data;
 using PropertyManager.Models;
 
@@ -15,6 +18,7 @@ namespace PropertyManager.Controllers
     public class TenantsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        public static readonly HttpClient httpClient = new HttpClient();
 
         public TenantsController(ApplicationDbContext context)
         {
@@ -62,10 +66,7 @@ namespace PropertyManager.Controllers
             var tenant = new Tenant();
             List<Property> properties = _context.Properties.Select(p => p).ToList();
            
-            //foreach(var item in propFromDb)
-            //{
-            //    properties.Add(item);
-            //}
+            
             ViewData["IdentityUserId"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id");
             ViewData["Property"] = new SelectList(properties, "Id", "Address");
             return View(tenant);
@@ -82,6 +83,20 @@ namespace PropertyManager.Controllers
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 tenant.IdentityUserId = userId;
+                var prop = _context.Properties.Where(p => p.Id == tenant.PropertyId).FirstOrDefault();
+                tenant.Property = prop;
+                var tenAddr = tenant.Property.Address + ", " + tenant.Property.City + ", " + tenant.Property.State + ", " + tenant.Property.ZipCode;
+
+                HttpResponseMessage response = await httpClient.GetAsync("https://maps.googleapis.com/maps/api/geocode/json?address=" + tenAddr + "&key=" + API_Key.APIKEY);
+                var result = await response.Content.ReadAsStringAsync();
+                var parseResult = JObject.Parse(result);
+                var lat = parseResult["results"][0]["geometry"]["location"]["lat"].Value<double>();
+                var lng = parseResult["results"][0]["geometry"]["location"]["lng"].Value<double>();
+
+                tenant.Property.lat = lat;
+                tenant.Property.lng = lng;
+
+
                 _context.Add(tenant);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
