@@ -196,5 +196,18 @@ namespace PropertyManager.Controllers
         {
             return _context.Tenants.Any(e => e.Id == id);
         }
+
+        public IActionResult WorkOrder(int? id)
+        {
+            WorkOrder workOrder = new WorkOrder();
+            var tenant = _context.Tenants.Where(t => t.Id == id).FirstOrDefault();
+            workOrder.Tenant = tenant;
+            return View(workOrder);
+        }
+        [HttpPost]
+        public IActionResult WorkOrder(int id, WorkOrder workOrder)
+        {
+            return View(workOrder);
+        }
     }
 }
