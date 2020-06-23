@@ -45,15 +45,13 @@ namespace PropertyManager.Controllers
                 return NotFound();
             }
 
-            var contractor = await _context.Contractors
-                .Include(c => c.IdentityUser)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (contractor == null)
+            var job = await _context.WorkOrders.Where(j => j.Id == id).Include(j => j.Tenant).FirstOrDefaultAsync();
+            if (job == null)
             {
                 return NotFound();
             }
 
-            return View(contractor);
+            return View(job);
         }
 
         // GET: Contractors/Create
