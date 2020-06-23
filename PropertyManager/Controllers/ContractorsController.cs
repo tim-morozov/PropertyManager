@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,8 +24,17 @@ namespace PropertyManager.Controllers
         // GET: Contractors
         public async Task<IActionResult> Index()
         {
-            var propertyManagerContext = _context.Contractors.Include(c => c.IdentityUser);
-            return View(await propertyManagerContext.ToListAsync());
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var contractor = _context.Contractors.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+            if(contractor == null)
+            {
+                return View("Create");
+            }
+            else
+            {
+                var jobs = _context.WorkOrders.Where(j => j.ContractorId == contractor.Id).ToListAsync();
+                return View(await jobs);
+            }
         }
 
         // GET: Contractors/Details/5
