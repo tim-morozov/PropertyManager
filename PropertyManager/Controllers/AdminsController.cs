@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,8 +24,17 @@ namespace PropertyManager.Controllers
         // GET: Admins
         public async Task<IActionResult> Index()
         {
-            var propertyManagerContext = _context.Admins.Include(a => a.IdentityUser);
-            return View(await propertyManagerContext.ToListAsync());
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var admin = _context.Admins.Where(a => a.IdentityUserId == userId).FirstOrDefault();
+            if(admin == null)
+            {
+                return View("Create");
+            }
+            else
+            {
+             var jobs = _context.WorkOrders.Where(j => j.IsComplete == false).ToListAsync();
+             return View(await jobs);
+            }
         }
 
         // GET: Admins/Details/5
@@ -62,6 +72,8 @@ namespace PropertyManager.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                admin.IdentityUserId = userId;
                 _context.Add(admin);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
