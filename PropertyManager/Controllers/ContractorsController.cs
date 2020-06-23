@@ -167,5 +167,10 @@ namespace PropertyManager.Controllers
         {
             return _context.Contractors.Any(e => e.Id == id);
         }
+
+        //public IActionResult ConfirmJob(int Id)
+        //{
+
+        //}
     }
 }

@@ -207,6 +207,7 @@ namespace PropertyManager.Controllers
         {
            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var tenant = _context.Tenants.Where(t => t.IdentityUserId == userId).FirstOrDefault();
+            workOrder.IsComplete = false;
             workOrder.TenantId = tenant.Id;
             _context.WorkOrders.Add(workOrder);
             _context.SaveChanges();
