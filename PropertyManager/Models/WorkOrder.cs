@@ -15,6 +15,9 @@ namespace PropertyManager.Models
         [ForeignKey("Tenant")]
         public int TenantId {get; set;}
         public Tenant Tenant { get; set; }
+        [ForeignKey("Contractor")]
+        public int? ContractorId { get; set; }
+        public Contractor Contractor { get; set; }
 
     }
 }
