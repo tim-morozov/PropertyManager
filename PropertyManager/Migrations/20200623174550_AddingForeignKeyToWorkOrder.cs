@@ -9,22 +9,22 @@ namespace PropertyManager.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "11bbea75-c3db-46ad-ae85-f7c029160691");
+                keyValue: "0292fbd2-9732-4514-ab52-0b3fcc6f1deb");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "4674420d-644f-477e-a432-d8c4786e1778");
+                keyValue: "2272a017-6b0c-467b-b0f5-c77dcdd4657b");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "6b4adfc3-fe81-4764-8ed2-d5f19652b8fc");
+                keyValue: "5906dc96-4f6c-457f-becc-6d622b51db3e");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "9494fc6b-716a-4eb0-a876-6e2b00836c80");
+                keyValue: "afc8eb51-e03a-4567-856a-eb293abc507b");
 
             migrationBuilder.AddColumn<int>(
                 name: "ContractorId",
@@ -36,10 +36,10 @@ namespace PropertyManager.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "e65c8e26-645d-48ec-b55c-275ce4ef97c2", "02afb834-ca48-4917-b10b-f9859c3db3f6", "Admin", "ADMIN" },
-                    { "fcf8336a-3d5c-4307-a67e-b5824a34d005", "71d9c3a6-d6ef-48e9-b713-615e85b55660", "Tenant", "TENANT" },
-                    { "76e7b3f4-bc5f-4f6f-b4d1-ee6da2a6d082", "5f6dbdee-7e5d-4442-899c-097449d895d7", "Contractor", "CONTRACTOR" },
-                    { "830c07df-6c3a-4e97-9f0a-1c685f671769", "8d927f75-b6ca-4804-b8b0-6f68564c9375", "Analyst", "ANALYST" }
+                    { "08b658db-c08d-434d-a3c1-8df749b24cbc", "465f1345-02a4-4a6e-a7cb-6fa71d87ebc0", "Admin", "ADMIN" },
+                    { "dcca3876-5048-4eeb-9cfe-36ddadd4b7ea", "90955d8c-913e-449c-b2ee-1b8fb92ee932", "Tenant", "TENANT" },
+                    { "87d8c008-f0f1-4321-97c7-058c8e8e6d1b", "828c8f07-d92a-485c-ab19-70aa5767b2f5", "Contractor", "CONTRACTOR" },
+                    { "a3f81862-8544-4681-85ca-72e9811671b5", "03f9677f-5f66-42aa-b21e-96b6389161d3", "Analyst", "ANALYST" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -69,22 +69,22 @@ namespace PropertyManager.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "76e7b3f4-bc5f-4f6f-b4d1-ee6da2a6d082");
+                keyValue: "08b658db-c08d-434d-a3c1-8df749b24cbc");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "830c07df-6c3a-4e97-9f0a-1c685f671769");
+                keyValue: "87d8c008-f0f1-4321-97c7-058c8e8e6d1b");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "e65c8e26-645d-48ec-b55c-275ce4ef97c2");
+                keyValue: "a3f81862-8544-4681-85ca-72e9811671b5");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "fcf8336a-3d5c-4307-a67e-b5824a34d005");
+                keyValue: "dcca3876-5048-4eeb-9cfe-36ddadd4b7ea");
 
             migrationBuilder.DropColumn(
                 name: "ContractorId",
@@ -95,10 +95,10 @@ namespace PropertyManager.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "6b4adfc3-fe81-4764-8ed2-d5f19652b8fc", "70be146c-6602-49de-a486-d387316deedd", "Admin", "ADMIN" },
-                    { "9494fc6b-716a-4eb0-a876-6e2b00836c80", "9baa0f8e-e095-4510-99f6-3a7434853910", "Tenant", "TENANT" },
-                    { "4674420d-644f-477e-a432-d8c4786e1778", "54a244a2-907c-40ff-a03d-fb52defc5ebc", "Contractor", "CONTRACTOR" },
-                    { "11bbea75-c3db-46ad-ae85-f7c029160691", "78ed1a67-537a-4ac4-93e3-669e2e1a953b", "Analyst", "ANALYST" }
+                    { "5906dc96-4f6c-457f-becc-6d622b51db3e", "6bd5e071-ad66-47af-b443-d76210680498", "Admin", "ADMIN" },
+                    { "0292fbd2-9732-4514-ab52-0b3fcc6f1deb", "ad3b2f56-c647-48dd-b622-0ac586e82fda", "Tenant", "TENANT" },
+                    { "2272a017-6b0c-467b-b0f5-c77dcdd4657b", "2952861a-a552-4816-9e8b-54419efeca6e", "Contractor", "CONTRACTOR" },
+                    { "afc8eb51-e03a-4567-856a-eb293abc507b", "e9769ccb-c2fe-4341-aa48-80c300ea8ca0", "Analyst", "ANALYST" }
                 });
         }
     }

@@ -48,29 +48,29 @@ namespace PropertyManager.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e65c8e26-645d-48ec-b55c-275ce4ef97c2",
-                            ConcurrencyStamp = "02afb834-ca48-4917-b10b-f9859c3db3f6",
+                            Id = "08b658db-c08d-434d-a3c1-8df749b24cbc",
+                            ConcurrencyStamp = "465f1345-02a4-4a6e-a7cb-6fa71d87ebc0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "fcf8336a-3d5c-4307-a67e-b5824a34d005",
-                            ConcurrencyStamp = "71d9c3a6-d6ef-48e9-b713-615e85b55660",
+                            Id = "dcca3876-5048-4eeb-9cfe-36ddadd4b7ea",
+                            ConcurrencyStamp = "90955d8c-913e-449c-b2ee-1b8fb92ee932",
                             Name = "Tenant",
                             NormalizedName = "TENANT"
                         },
                         new
                         {
-                            Id = "76e7b3f4-bc5f-4f6f-b4d1-ee6da2a6d082",
-                            ConcurrencyStamp = "5f6dbdee-7e5d-4442-899c-097449d895d7",
+                            Id = "87d8c008-f0f1-4321-97c7-058c8e8e6d1b",
+                            ConcurrencyStamp = "828c8f07-d92a-485c-ab19-70aa5767b2f5",
                             Name = "Contractor",
                             NormalizedName = "CONTRACTOR"
                         },
                         new
                         {
-                            Id = "830c07df-6c3a-4e97-9f0a-1c685f671769",
-                            ConcurrencyStamp = "8d927f75-b6ca-4804-b8b0-6f68564c9375",
+                            Id = "a3f81862-8544-4681-85ca-72e9811671b5",
+                            ConcurrencyStamp = "03f9677f-5f66-42aa-b21e-96b6389161d3",
                             Name = "Analyst",
                             NormalizedName = "ANALYST"
                         });

@@ -71,7 +71,9 @@ namespace PropertyManager.Migrations
                     Address = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
                     State = table.Column<string>(nullable: true),
-                    ZipCode = table.Column<string>(nullable: true)
+                    ZipCode = table.Column<string>(nullable: true),
+                    lat = table.Column<double>(nullable: true),
+                    lng = table.Column<double>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -299,27 +301,27 @@ namespace PropertyManager.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "3bdd11bf-3263-4af4-ab22-a17f12ef1de7", "0855552a-f5a6-4b0b-b470-368c33e5f680", "Admin", "ADMIN" },
-                    { "4b8500a0-466a-4755-aa0b-46cc1a0d4342", "59737f24-534d-4116-b37d-950484a0f2b5", "Tenant", "TENANT" },
-                    { "ffd16c1a-76b6-4dbf-945a-13ef814c9653", "5353c549-3dd4-489e-af7f-d2b7cb3731c4", "Contractor", "CONTRACTOR" },
-                    { "8ef0b350-66a3-4ca0-a5f5-23543270da4a", "6fcb8f71-de8d-4ab1-9bf8-60a436c9f2b9", "Analyst", "ANALYST" }
+                    { "5906dc96-4f6c-457f-becc-6d622b51db3e", "6bd5e071-ad66-47af-b443-d76210680498", "Admin", "ADMIN" },
+                    { "0292fbd2-9732-4514-ab52-0b3fcc6f1deb", "ad3b2f56-c647-48dd-b622-0ac586e82fda", "Tenant", "TENANT" },
+                    { "2272a017-6b0c-467b-b0f5-c77dcdd4657b", "2952861a-a552-4816-9e8b-54419efeca6e", "Contractor", "CONTRACTOR" },
+                    { "afc8eb51-e03a-4567-856a-eb293abc507b", "e9769ccb-c2fe-4341-aa48-80c300ea8ca0", "Analyst", "ANALYST" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Properties",
-                columns: new[] { "Id", "Address", "City", "Name", "State", "ZipCode" },
+                columns: new[] { "Id", "Address", "City", "Name", "State", "ZipCode", "lat", "lng" },
                 values: new object[,]
                 {
-                    { 1, "2741 N 40th St", "Milwaukee", "House1", "WI", "53210" },
-                    { 2, "1531 N 29th St Unit 1533", "Milwaukee", "House2", "WI", "53208" },
-                    { 3, "4546 N 70th St", "Milwaukee", "House3", "WI", "53218" },
-                    { 4, "1962 S 12th St", "Milwaukee", "House4", "WI", "53204" },
-                    { 5, "4183 N 13th St", "Milwaukee", "House5", "WI", "53209" },
-                    { 6, "4201 W Hawthorne Trace Rd", "Milwaukee", "River Place", "WI", "53209" },
-                    { 7, "441 E Erie St", "Milwaukee", "DoMUS", "WI", "53202" },
-                    { 8, "9220 N 75th St", "Milwaukee", "GlenBrook", "WI", "53223" },
-                    { 9, "1551 N Water St", "Milwaukee", "North End", "WI", "53202" },
-                    { 10, "2634 North Stowell Avenue", "Milwaukee", "Stonewell", "WI", "53211" }
+                    { 1, "2741 N 40th St", "Milwaukee", "House1", "WI", "53210", null, null },
+                    { 2, "1531 N 29th St Unit 1533", "Milwaukee", "House2", "WI", "53208", null, null },
+                    { 3, "4546 N 70th St", "Milwaukee", "House3", "WI", "53218", null, null },
+                    { 4, "1962 S 12th St", "Milwaukee", "House4", "WI", "53204", null, null },
+                    { 5, "4183 N 13th St", "Milwaukee", "House5", "WI", "53209", null, null },
+                    { 6, "4201 W Hawthorne Trace Rd", "Milwaukee", "River Place", "WI", "53209", null, null },
+                    { 7, "441 E Erie St", "Milwaukee", "DoMUS", "WI", "53202", null, null },
+                    { 8, "9220 N 75th St", "Milwaukee", "GlenBrook", "WI", "53223", null, null },
+                    { 9, "1551 N Water St", "Milwaukee", "North End", "WI", "53202", null, null },
+                    { 10, "2634 North Stowell Avenue", "Milwaukee", "Stonewell", "WI", "53211", null, null }
                 });
 
             migrationBuilder.CreateIndex(

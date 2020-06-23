@@ -10,8 +10,8 @@ using PropertyManager.Data;
 namespace PropertyManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200622200717_AddingLatLngToProperty")]
-    partial class AddingLatLngToProperty
+    [Migration("20200623174550_AddingForeignKeyToWorkOrder")]
+    partial class AddingForeignKeyToWorkOrder
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,29 +50,29 @@ namespace PropertyManager.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6b4adfc3-fe81-4764-8ed2-d5f19652b8fc",
-                            ConcurrencyStamp = "70be146c-6602-49de-a486-d387316deedd",
+                            Id = "08b658db-c08d-434d-a3c1-8df749b24cbc",
+                            ConcurrencyStamp = "465f1345-02a4-4a6e-a7cb-6fa71d87ebc0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "9494fc6b-716a-4eb0-a876-6e2b00836c80",
-                            ConcurrencyStamp = "9baa0f8e-e095-4510-99f6-3a7434853910",
+                            Id = "dcca3876-5048-4eeb-9cfe-36ddadd4b7ea",
+                            ConcurrencyStamp = "90955d8c-913e-449c-b2ee-1b8fb92ee932",
                             Name = "Tenant",
                             NormalizedName = "TENANT"
                         },
                         new
                         {
-                            Id = "4674420d-644f-477e-a432-d8c4786e1778",
-                            ConcurrencyStamp = "54a244a2-907c-40ff-a03d-fb52defc5ebc",
+                            Id = "87d8c008-f0f1-4321-97c7-058c8e8e6d1b",
+                            ConcurrencyStamp = "828c8f07-d92a-485c-ab19-70aa5767b2f5",
                             Name = "Contractor",
                             NormalizedName = "CONTRACTOR"
                         },
                         new
                         {
-                            Id = "11bbea75-c3db-46ad-ae85-f7c029160691",
-                            ConcurrencyStamp = "78ed1a67-537a-4ac4-93e3-669e2e1a953b",
+                            Id = "a3f81862-8544-4681-85ca-72e9811671b5",
+                            ConcurrencyStamp = "03f9677f-5f66-42aa-b21e-96b6389161d3",
                             Name = "Analyst",
                             NormalizedName = "ANALYST"
                         });
@@ -494,6 +494,9 @@ namespace PropertyManager.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ContractorId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Issue")
                         .HasColumnType("nvarchar(max)");
 
@@ -501,6 +504,8 @@ namespace PropertyManager.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ContractorId");
 
                     b.HasIndex("TenantId");
 
@@ -594,6 +599,10 @@ namespace PropertyManager.Migrations
 
             modelBuilder.Entity("PropertyManager.Models.WorkOrder", b =>
                 {
+                    b.HasOne("PropertyManager.Models.Contractor", "Contractor")
+                        .WithMany()
+                        .HasForeignKey("ContractorId");
+
                     b.HasOne("PropertyManager.Models.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId")
