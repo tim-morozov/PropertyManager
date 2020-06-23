@@ -32,7 +32,7 @@ namespace PropertyManager.Controllers
             }
             else
             {
-                var jobs = _context.WorkOrders.Where(j => j.ContractorId == contractor.Id).ToListAsync();
+                var jobs = _context.WorkOrders.Where(j => j.ContractorId == contractor.Id && j.IsComplete == false).ToListAsync();
                 return View(await jobs);
             }
         }
@@ -168,9 +168,13 @@ namespace PropertyManager.Controllers
             return _context.Contractors.Any(e => e.Id == id);
         }
 
-        //public IActionResult ConfirmJob(int Id)
-        //{
-
-        //}
+        public IActionResult ConfirmJob(int id)
+        {
+            var job = _context.WorkOrders.Where(j => j.Id == id).FirstOrDefault();
+            var tenant = _context.Tenants.Where(t => t.Id == job.TenantId).FirstOrDefault();
+            tenant.Balance += 60;
+            job.IsComplete = true;
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
