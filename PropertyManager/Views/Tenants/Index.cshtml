@@ -39,12 +39,11 @@
                     @Html.DisplayFor(modelItem => Model.IdentityUser.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => Model.Property.Id)
+                    @Html.DisplayFor(modelItem => Model.Property.Address)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@Model.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
                 </td>
             </tr>
 
