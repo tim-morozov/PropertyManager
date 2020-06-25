@@ -32,7 +32,7 @@ namespace PropertyManager.Controllers
             }
             else
             {
-             var jobs = _context.WorkOrders.Where(j => j.IsComplete == false).ToListAsync();
+             var jobs = _context.WorkOrders.Select(j => j).Include(j => j.Tenant).ThenInclude(j => j.Property).ToListAsync();
              return View(await jobs);
             }
         }
@@ -45,7 +45,8 @@ namespace PropertyManager.Controllers
                 return NotFound();
             }
 
-            var job = _context.WorkOrders.Where(j => j.Id == id);
+            var job = _context.WorkOrders.Where(j => j.Id == id).Include(j => j.Tenant).Include(j => j.Tenant.Property).FirstOrDefault();
+            
             if (job == null)
             {
                 return NotFound();
@@ -71,7 +72,9 @@ namespace PropertyManager.Controllers
             if (ModelState.IsValid)
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var identityUser = _context.Users.Where(i => i.Id == userId).FirstOrDefault();
                 admin.IdentityUserId = userId;
+                admin.IdentityUser = identityUser;
                 _context.Add(admin);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

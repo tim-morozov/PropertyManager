@@ -45,7 +45,7 @@ namespace PropertyManager.Controllers
                 return NotFound();
             }
 
-            var job = await _context.WorkOrders.Where(j => j.Id == id).Include(j => j.Tenant).FirstOrDefaultAsync();
+            var job = await _context.WorkOrders.Where(j => j.Id == id).Include(j => j.Tenant).Include(j => j.Tenant.Property).FirstOrDefaultAsync();
             if (job == null)
             {
                 return NotFound();
@@ -71,7 +71,9 @@ namespace PropertyManager.Controllers
             if (ModelState.IsValid)
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var identityUser = _context.Users.Where(i => i.Id == userId).FirstOrDefault();
                 contractor.IdentityUserId = userId;
+                contractor.IdentityUser = identityUser;
                 _context.Add(contractor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

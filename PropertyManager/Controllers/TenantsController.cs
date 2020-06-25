@@ -82,7 +82,9 @@ namespace PropertyManager.Controllers
             if (ModelState.IsValid)
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var IdentityUser = _context.Users.Where(i => i.Id == userId).FirstOrDefault();
                 tenant.IdentityUserId = userId;
+                tenant.IdentityUser = IdentityUser;
                 var prop = _context.Properties.Where(p => p.Id == tenant.PropertyId).FirstOrDefault();
                 tenant.Property = prop;
                 var tenAddr = tenant.Property.Address + ", " + tenant.Property.City + ", " + tenant.Property.State + ", " + tenant.Property.ZipCode;
@@ -209,9 +211,10 @@ namespace PropertyManager.Controllers
             var tenant = _context.Tenants.Where(t => t.IdentityUserId == userId).FirstOrDefault();
             workOrder.IsComplete = false;
             workOrder.TenantId = tenant.Id;
+            workOrder.Tenant = tenant;
             _context.WorkOrders.Add(workOrder);
             _context.SaveChanges();
-            return View(workOrder);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
