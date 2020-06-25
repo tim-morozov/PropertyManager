@@ -8,53 +8,95 @@
 <h1>Index</h1>
 
 @*<p>
-    <a asp-action="Create">Create New</a>
-</p>*@
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Issue)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsComplete)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TenantId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContractorId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Issue)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsComplete)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenantId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContractorId)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        <a asp-action="Create">Create New</a>
+    </p>*@
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Issue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsComplete)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TenantId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContractorId)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Issue)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsComplete)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenantId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContractorId)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="AssignWork" asp-route-id="@item.Id">Assign</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col">
+        <div onload="initialize()" id="map" style="height: 600px; width: 650px ;"></div>
+    </div>
+</div>
+
+<script>
+    var coords = [];
+    @foreach (var item in Model)
+    {
+        <text>
+    myLatLng = { lat: @item.Tenant.Property.lat lng: @item.Tenant.Property.lat};
+    coords.push(myLatLng);
+    </text>
+    }
+    var map;
+       function initMap() {
+        @*var myLatLng = {lat: @Model.Tenant.Property.lat, lng: @Model.Property.lng};*@
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: coords[0]
+        });
+
+           @foreach (var item in Model)
+           {
+                   <text>
+           var marker = new google.maps.Marker({
+               position: {lat: @item.Tenant.Property.lat, lng: @item.Tenant.Property.lng}
+                  map: map,
+                  title: '@item.Id'
+                   });
+           </text>
+           }
+               
+      }
+
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=@API_Key.APIKEY&callback=initMap"></script>
+

@@ -38,22 +38,20 @@ namespace PropertyManager.Controllers
         }
 
         // GET: Admins/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var admin = await _context.Admins
-                .Include(a => a.IdentityUser)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (admin == null)
+            var job = _context.WorkOrders.Where(j => j.Id == id);
+            if (job == null)
             {
                 return NotFound();
             }
 
-            return View(admin);
+            return View(job);
         }
 
         // GET: Admins/Create
@@ -168,6 +166,21 @@ namespace PropertyManager.Controllers
         private bool AdminExists(int id)
         {
             return _context.Admins.Any(e => e.Id == id);
+        }
+
+        public IActionResult AssignWork(int id)
+        {
+            List<Contractor> contractors = _context.Contractors.Select(c => c).ToList();
+            var job = _context.WorkOrders.Where(j => j.Id == id).FirstOrDefault();
+            ViewData["Contractors"] = new SelectList(contractors, "Id", "Type");
+            return View(job);
+        }
+        [HttpPost]
+        public IActionResult AssignWork(int id, WorkOrder job)
+        {
+            _context.WorkOrders.Update(job);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
