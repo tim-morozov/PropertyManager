@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,14 @@ namespace PropertyManager.Controllers
         // GET: Analysts
         public async Task<IActionResult> Index()
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var analyst = _context.Analysts.Where(a => a.IdentityUserId == userId);
+            if(analyst == null)
+            {
+                return View("Create");
+            }
+            else
+            { }
             var propertyManagerContext = _context.Analysts.Include(a => a.IdentityUser);
             return View(await propertyManagerContext.ToListAsync());
         }
@@ -49,8 +58,9 @@ namespace PropertyManager.Controllers
         // GET: Analysts/Create
         public IActionResult Create()
         {
+            Analyst analyst = new Analyst();
             ViewData["IdentityUserId"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id");
-            return View();
+            return View(analyst);
         }
 
         // POST: Analysts/Create
@@ -62,6 +72,8 @@ namespace PropertyManager.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                analyst.IdentityUserId = userId;
                 _context.Add(analyst);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
