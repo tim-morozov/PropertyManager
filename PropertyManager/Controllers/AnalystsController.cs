@@ -32,8 +32,7 @@ namespace PropertyManager.Controllers
             }
             else
             { }
-            var propertyManagerContext = _context.Analysts.Include(a => a.IdentityUser);
-            return View(await propertyManagerContext.ToListAsync());
+           
         }
 
         // GET: Analysts/Details/5
