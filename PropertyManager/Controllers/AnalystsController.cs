@@ -22,7 +22,7 @@ namespace PropertyManager.Controllers
         }
 
         // GET: Analysts
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var analyst = _context.Analysts.Where(a => a.IdentityUserId == userId);
@@ -31,7 +31,10 @@ namespace PropertyManager.Controllers
                 return View("Create");
             }
             else
-            { }
+            {
+                var properties = _context.Properties.Where(p => p.WorkOrderCount >= 1).ToList();
+                return View(properties);
+            }
            
         }
 
