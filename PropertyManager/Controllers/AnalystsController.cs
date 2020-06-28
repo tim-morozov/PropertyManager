@@ -46,15 +46,13 @@ namespace PropertyManager.Controllers
                 return NotFound();
             }
 
-            var analyst = await _context.Analysts
-                .Include(a => a.IdentityUser)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (analyst == null)
+            var property = await _context.Properties.Where(p => p.Id == id).FirstOrDefaultAsync();
+            if (property == null)
             {
                 return NotFound();
             }
 
-            return View(analyst);
+            return View();
         }
 
         // GET: Analysts/Create
@@ -170,6 +168,13 @@ namespace PropertyManager.Controllers
         private bool AnalystExists(int id)
         {
             return _context.Analysts.Any(e => e.Id == id);
+        }
+
+        public IActionResult Graph()
+        {
+            var workOrders = _context.Properties.Where(w => w.WorkOrderCount >= 1).ToList();
+
+            return View(workOrders);
         }
     }
 }
