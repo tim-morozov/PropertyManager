@@ -1,0 +1,87 @@
+﻿@model PropertyManager.Models.Reccomendation
+
+@{
+    ViewData["Title"] = "RecDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Reccomendation Details</h1>
+
+<div>
+    <h4>Reccomendation</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Rec)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Rec)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Property.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Property.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Property.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Property.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Property.City)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Property.City)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Property.State)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Property.State)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Property.ZipCode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Property.ZipCode)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
+<div class="row">
+    <div class="col">
+        <div onload="initialize()" id="map" style="height: 600px; width: 650px ;"></div>
+    </div>
+</div>
+
+<script>
+
+        var map;
+       function initMap() {
+        var myLatLng = {lat: @Model.Property.lat, lng: @Model.Property.lng};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Hello World!'
+        });
+      }
+
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=@API_Key.APIKEY&callback=initMap"></script>

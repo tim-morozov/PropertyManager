@@ -48,29 +48,29 @@ namespace PropertyManager.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "72fe8e8b-856b-4f35-9b44-be1134fc5e09",
-                            ConcurrencyStamp = "6534e36b-94ed-4fae-b6d4-c83593559c81",
+                            Id = "4d027432-2ddb-4480-a9da-9c8e28ca094d",
+                            ConcurrencyStamp = "697c239e-489e-4062-a629-6afac9310cb2",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "84a201d6-e87e-46d6-80ed-90077e993a37",
-                            ConcurrencyStamp = "27117b77-eae0-468b-ad57-10a38d1a9fc0",
+                            Id = "380dd833-a556-4561-a130-d8dc6887b0d9",
+                            ConcurrencyStamp = "c4d4834d-9d8f-4361-bcb1-1d927e73d88e",
                             Name = "Tenant",
                             NormalizedName = "TENANT"
                         },
                         new
                         {
-                            Id = "fc04e71f-2293-4b4e-a827-2d1b1938f829",
-                            ConcurrencyStamp = "db6f368d-8d5b-44d9-8619-8b24bee8e253",
+                            Id = "03b63d31-174b-4b63-96e6-bcf5f23d3be8",
+                            ConcurrencyStamp = "fbd66f88-0cdd-4ff0-98eb-f54a34c77856",
                             Name = "Contractor",
                             NormalizedName = "CONTRACTOR"
                         },
                         new
                         {
-                            Id = "4ca8848c-5957-4eed-9102-a616101cba67",
-                            ConcurrencyStamp = "79869f99-7739-4ba6-8b41-36c55832423b",
+                            Id = "4fc2131f-e2df-4614-8588-ad501cc3ad06",
+                            ConcurrencyStamp = "efd3c4db-200d-4616-a434-b32cfcfb87b8",
                             Name = "Analyst",
                             NormalizedName = "ANALYST"
                         });
@@ -479,6 +479,26 @@ namespace PropertyManager.Migrations
                         });
                 });
 
+            modelBuilder.Entity("PropertyManager.Models.Reccomendation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Rec")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PropertyId");
+
+                    b.ToTable("Reccomendations");
+                });
+
             modelBuilder.Entity("PropertyManager.Models.Tenant", b =>
                 {
                     b.Property<int>("Id")
@@ -608,6 +628,13 @@ namespace PropertyManager.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
                         .HasForeignKey("IdentityUserId");
+                });
+
+            modelBuilder.Entity("PropertyManager.Models.Reccomendation", b =>
+                {
+                    b.HasOne("PropertyManager.Models.Property", "Property")
+                        .WithMany()
+                        .HasForeignKey("PropertyId");
                 });
 
             modelBuilder.Entity("PropertyManager.Models.Tenant", b =>

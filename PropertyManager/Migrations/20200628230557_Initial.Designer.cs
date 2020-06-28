@@ -10,7 +10,7 @@ using PropertyManager.Data;
 namespace PropertyManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200623164111_Initial")]
+    [Migration("20200628230557_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,29 +50,29 @@ namespace PropertyManager.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5906dc96-4f6c-457f-becc-6d622b51db3e",
-                            ConcurrencyStamp = "6bd5e071-ad66-47af-b443-d76210680498",
+                            Id = "4d027432-2ddb-4480-a9da-9c8e28ca094d",
+                            ConcurrencyStamp = "697c239e-489e-4062-a629-6afac9310cb2",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "0292fbd2-9732-4514-ab52-0b3fcc6f1deb",
-                            ConcurrencyStamp = "ad3b2f56-c647-48dd-b622-0ac586e82fda",
+                            Id = "380dd833-a556-4561-a130-d8dc6887b0d9",
+                            ConcurrencyStamp = "c4d4834d-9d8f-4361-bcb1-1d927e73d88e",
                             Name = "Tenant",
                             NormalizedName = "TENANT"
                         },
                         new
                         {
-                            Id = "2272a017-6b0c-467b-b0f5-c77dcdd4657b",
-                            ConcurrencyStamp = "2952861a-a552-4816-9e8b-54419efeca6e",
+                            Id = "03b63d31-174b-4b63-96e6-bcf5f23d3be8",
+                            ConcurrencyStamp = "fbd66f88-0cdd-4ff0-98eb-f54a34c77856",
                             Name = "Contractor",
                             NormalizedName = "CONTRACTOR"
                         },
                         new
                         {
-                            Id = "afc8eb51-e03a-4567-856a-eb293abc507b",
-                            ConcurrencyStamp = "e9769ccb-c2fe-4341-aa48-80c300ea8ca0",
+                            Id = "4fc2131f-e2df-4614-8588-ad501cc3ad06",
+                            ConcurrencyStamp = "efd3c4db-200d-4616-a434-b32cfcfb87b8",
                             Name = "Analyst",
                             NormalizedName = "ANALYST"
                         });
@@ -257,6 +257,12 @@ namespace PropertyManager.Migrations
                     b.Property<string>("IdentityUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdentityUserId");
@@ -273,6 +279,12 @@ namespace PropertyManager.Migrations
 
                     b.Property<string>("IdentityUserId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -350,6 +362,9 @@ namespace PropertyManager.Migrations
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("WorkOrderCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("ZipCode")
                         .HasColumnType("nvarchar(max)");
 
@@ -371,6 +386,7 @@ namespace PropertyManager.Migrations
                             City = "Milwaukee",
                             Name = "House1",
                             State = "WI",
+                            WorkOrderCount = 0,
                             ZipCode = "53210"
                         },
                         new
@@ -380,6 +396,7 @@ namespace PropertyManager.Migrations
                             City = "Milwaukee",
                             Name = "House2",
                             State = "WI",
+                            WorkOrderCount = 0,
                             ZipCode = "53208"
                         },
                         new
@@ -389,6 +406,7 @@ namespace PropertyManager.Migrations
                             City = "Milwaukee",
                             Name = "House3",
                             State = "WI",
+                            WorkOrderCount = 0,
                             ZipCode = "53218"
                         },
                         new
@@ -398,6 +416,7 @@ namespace PropertyManager.Migrations
                             City = "Milwaukee",
                             Name = "House4",
                             State = "WI",
+                            WorkOrderCount = 0,
                             ZipCode = "53204"
                         },
                         new
@@ -407,6 +426,7 @@ namespace PropertyManager.Migrations
                             City = "Milwaukee",
                             Name = "House5",
                             State = "WI",
+                            WorkOrderCount = 0,
                             ZipCode = "53209"
                         },
                         new
@@ -416,6 +436,7 @@ namespace PropertyManager.Migrations
                             City = "Milwaukee",
                             Name = "River Place",
                             State = "WI",
+                            WorkOrderCount = 0,
                             ZipCode = "53209"
                         },
                         new
@@ -425,6 +446,7 @@ namespace PropertyManager.Migrations
                             City = "Milwaukee",
                             Name = "DoMUS",
                             State = "WI",
+                            WorkOrderCount = 0,
                             ZipCode = "53202"
                         },
                         new
@@ -434,6 +456,7 @@ namespace PropertyManager.Migrations
                             City = "Milwaukee",
                             Name = "GlenBrook",
                             State = "WI",
+                            WorkOrderCount = 0,
                             ZipCode = "53223"
                         },
                         new
@@ -443,6 +466,7 @@ namespace PropertyManager.Migrations
                             City = "Milwaukee",
                             Name = "North End",
                             State = "WI",
+                            WorkOrderCount = 0,
                             ZipCode = "53202"
                         },
                         new
@@ -452,8 +476,29 @@ namespace PropertyManager.Migrations
                             City = "Milwaukee",
                             Name = "Stonewell",
                             State = "WI",
+                            WorkOrderCount = 0,
                             ZipCode = "53211"
                         });
+                });
+
+            modelBuilder.Entity("PropertyManager.Models.Reccomendation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Rec")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PropertyId");
+
+                    b.ToTable("Reccomendations");
                 });
 
             modelBuilder.Entity("PropertyManager.Models.Tenant", b =>
@@ -494,6 +539,12 @@ namespace PropertyManager.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ContractorId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsComplete")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Issue")
                         .HasColumnType("nvarchar(max)");
 
@@ -501,6 +552,8 @@ namespace PropertyManager.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ContractorId");
 
                     b.HasIndex("TenantId");
 
@@ -579,6 +632,13 @@ namespace PropertyManager.Migrations
                         .HasForeignKey("IdentityUserId");
                 });
 
+            modelBuilder.Entity("PropertyManager.Models.Reccomendation", b =>
+                {
+                    b.HasOne("PropertyManager.Models.Property", "Property")
+                        .WithMany()
+                        .HasForeignKey("PropertyId");
+                });
+
             modelBuilder.Entity("PropertyManager.Models.Tenant", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
@@ -594,6 +654,10 @@ namespace PropertyManager.Migrations
 
             modelBuilder.Entity("PropertyManager.Models.WorkOrder", b =>
                 {
+                    b.HasOne("PropertyManager.Models.Contractor", "Contractor")
+                        .WithMany()
+                        .HasForeignKey("ContractorId");
+
                     b.HasOne("PropertyManager.Models.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId")

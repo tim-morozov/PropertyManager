@@ -72,6 +72,7 @@ namespace PropertyManager.Migrations
                     City = table.Column<string>(nullable: true),
                     State = table.Column<string>(nullable: true),
                     ZipCode = table.Column<string>(nullable: true),
+                    WorkOrderCount = table.Column<int>(nullable: false),
                     lat = table.Column<double>(nullable: true),
                     lng = table.Column<double>(nullable: true)
                 },
@@ -107,6 +108,8 @@ namespace PropertyManager.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
                     IdentityUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -126,6 +129,8 @@ namespace PropertyManager.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
                     IdentityUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -248,6 +253,26 @@ namespace PropertyManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Reccomendations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Rec = table.Column<string>(nullable: true),
+                    PropertyId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reccomendations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reccomendations_Properties_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Properties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tenants",
                 columns: table => new
                 {
@@ -283,11 +308,19 @@ namespace PropertyManager.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Issue = table.Column<string>(nullable: true),
-                    TenantId = table.Column<int>(nullable: false)
+                    IsComplete = table.Column<bool>(nullable: false),
+                    TenantId = table.Column<int>(nullable: false),
+                    ContractorId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WorkOrders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkOrders_Contractors_ContractorId",
+                        column: x => x.ContractorId,
+                        principalTable: "Contractors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_WorkOrders_Tenants_TenantId",
                         column: x => x.TenantId,
@@ -301,27 +334,27 @@ namespace PropertyManager.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "5906dc96-4f6c-457f-becc-6d622b51db3e", "6bd5e071-ad66-47af-b443-d76210680498", "Admin", "ADMIN" },
-                    { "0292fbd2-9732-4514-ab52-0b3fcc6f1deb", "ad3b2f56-c647-48dd-b622-0ac586e82fda", "Tenant", "TENANT" },
-                    { "2272a017-6b0c-467b-b0f5-c77dcdd4657b", "2952861a-a552-4816-9e8b-54419efeca6e", "Contractor", "CONTRACTOR" },
-                    { "afc8eb51-e03a-4567-856a-eb293abc507b", "e9769ccb-c2fe-4341-aa48-80c300ea8ca0", "Analyst", "ANALYST" }
+                    { "4d027432-2ddb-4480-a9da-9c8e28ca094d", "697c239e-489e-4062-a629-6afac9310cb2", "Admin", "ADMIN" },
+                    { "380dd833-a556-4561-a130-d8dc6887b0d9", "c4d4834d-9d8f-4361-bcb1-1d927e73d88e", "Tenant", "TENANT" },
+                    { "03b63d31-174b-4b63-96e6-bcf5f23d3be8", "fbd66f88-0cdd-4ff0-98eb-f54a34c77856", "Contractor", "CONTRACTOR" },
+                    { "4fc2131f-e2df-4614-8588-ad501cc3ad06", "efd3c4db-200d-4616-a434-b32cfcfb87b8", "Analyst", "ANALYST" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Properties",
-                columns: new[] { "Id", "Address", "City", "Name", "State", "ZipCode", "lat", "lng" },
+                columns: new[] { "Id", "Address", "City", "Name", "State", "WorkOrderCount", "ZipCode", "lat", "lng" },
                 values: new object[,]
                 {
-                    { 1, "2741 N 40th St", "Milwaukee", "House1", "WI", "53210", null, null },
-                    { 2, "1531 N 29th St Unit 1533", "Milwaukee", "House2", "WI", "53208", null, null },
-                    { 3, "4546 N 70th St", "Milwaukee", "House3", "WI", "53218", null, null },
-                    { 4, "1962 S 12th St", "Milwaukee", "House4", "WI", "53204", null, null },
-                    { 5, "4183 N 13th St", "Milwaukee", "House5", "WI", "53209", null, null },
-                    { 6, "4201 W Hawthorne Trace Rd", "Milwaukee", "River Place", "WI", "53209", null, null },
-                    { 7, "441 E Erie St", "Milwaukee", "DoMUS", "WI", "53202", null, null },
-                    { 8, "9220 N 75th St", "Milwaukee", "GlenBrook", "WI", "53223", null, null },
-                    { 9, "1551 N Water St", "Milwaukee", "North End", "WI", "53202", null, null },
-                    { 10, "2634 North Stowell Avenue", "Milwaukee", "Stonewell", "WI", "53211", null, null }
+                    { 1, "2741 N 40th St", "Milwaukee", "House1", "WI", 0, "53210", null, null },
+                    { 2, "1531 N 29th St Unit 1533", "Milwaukee", "House2", "WI", 0, "53208", null, null },
+                    { 3, "4546 N 70th St", "Milwaukee", "House3", "WI", 0, "53218", null, null },
+                    { 4, "1962 S 12th St", "Milwaukee", "House4", "WI", 0, "53204", null, null },
+                    { 5, "4183 N 13th St", "Milwaukee", "House5", "WI", 0, "53209", null, null },
+                    { 6, "4201 W Hawthorne Trace Rd", "Milwaukee", "River Place", "WI", 0, "53209", null, null },
+                    { 7, "441 E Erie St", "Milwaukee", "DoMUS", "WI", 0, "53202", null, null },
+                    { 8, "9220 N 75th St", "Milwaukee", "GlenBrook", "WI", 0, "53223", null, null },
+                    { 9, "1551 N Water St", "Milwaukee", "North End", "WI", 0, "53202", null, null },
+                    { 10, "2634 North Stowell Avenue", "Milwaukee", "Stonewell", "WI", 0, "53211", null, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -379,6 +412,11 @@ namespace PropertyManager.Migrations
                 column: "IdentityUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Reccomendations_PropertyId",
+                table: "Reccomendations",
+                column: "PropertyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tenants_IdentityUserId",
                 table: "Tenants",
                 column: "IdentityUserId");
@@ -387,6 +425,11 @@ namespace PropertyManager.Migrations
                 name: "IX_Tenants_PropertyId",
                 table: "Tenants",
                 column: "PropertyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkOrders_ContractorId",
+                table: "WorkOrders",
+                column: "ContractorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkOrders_TenantId",
@@ -421,13 +464,16 @@ namespace PropertyManager.Migrations
                 name: "Complaints");
 
             migrationBuilder.DropTable(
-                name: "Contractors");
+                name: "Reccomendations");
 
             migrationBuilder.DropTable(
                 name: "WorkOrders");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Contractors");
 
             migrationBuilder.DropTable(
                 name: "Tenants");

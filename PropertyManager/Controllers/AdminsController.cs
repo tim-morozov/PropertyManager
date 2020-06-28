@@ -185,5 +185,17 @@ namespace PropertyManager.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult ViewRecs()
+        {
+            var recs = _context.Reccomendations.Select(r => r).Include(r => r.Property.Name).ToList();
+            return View(recs);
+        }
+        
+        public IActionResult RecDetails(int id)
+        {
+            var rec = _context.Reccomendations.Where(r => r.Id == id).Include(r => r.Property).FirstOrDefault();
+            return View(rec);
+        }
     }
 }

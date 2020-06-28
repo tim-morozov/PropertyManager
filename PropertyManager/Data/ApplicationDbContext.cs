@@ -21,6 +21,8 @@ namespace PropertyManager.Data
         public DbSet<Complaint> Complaints { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Analyst> Analysts { get; set; }
+
+        public DbSet<Reccomendation> Reccomendations { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

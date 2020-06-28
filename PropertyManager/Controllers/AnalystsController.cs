@@ -188,7 +188,7 @@ namespace PropertyManager.Controllers
         [HttpPost]
         public IActionResult CreateRec(Reccomendation reccomend)
         {
-            _context.Add(reccomend);
+            _context.Reccomendations.Add(reccomend);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
