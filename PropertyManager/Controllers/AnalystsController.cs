@@ -176,5 +176,21 @@ namespace PropertyManager.Controllers
 
             return View(workOrders);
         }
+
+        public IActionResult CreateRec()
+        {
+            Reccomendation reccomend = new Reccomendation();
+            List<Property> properties = _context.Properties.Where(p => p.WorkOrderCount > 0).ToList();
+            ViewData["Property"] = new SelectList(properties, "Id", "Address");
+            return View(reccomend);
+        }
+
+        [HttpPost]
+        public IActionResult CreateRec(Reccomendation reccomend)
+        {
+            _context.Add(reccomend);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
