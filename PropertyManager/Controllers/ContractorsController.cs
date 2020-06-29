@@ -169,13 +169,16 @@ namespace PropertyManager.Controllers
         {
             return _context.Contractors.Any(e => e.Id == id);
         }
-
+        
         public IActionResult ConfirmJob(int id)
         {
             var job = _context.WorkOrders.Where(j => j.Id == id).FirstOrDefault();
             var tenant = _context.Tenants.Where(t => t.Id == job.TenantId).FirstOrDefault();
             tenant.Balance += 60;
             job.IsComplete = true;
+            _context.Update(job);
+            _context.Update(tenant);
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
     }

@@ -192,7 +192,7 @@ namespace PropertyManager.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
-
+       
         public IActionResult ViewWorkOrders(int id)
         {
             var allWO = _context.WorkOrders.Select(a => a).Include(a => a.Tenant).ToList();
