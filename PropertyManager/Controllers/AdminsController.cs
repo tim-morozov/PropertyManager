@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using PropertyManager.Data;
 using PropertyManager.Models;
 
@@ -15,6 +17,7 @@ namespace PropertyManager.Controllers
     public class AdminsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        public static readonly HttpClient httpClient = new HttpClient();
 
         public AdminsController(ApplicationDbContext context)
         {
@@ -196,6 +199,27 @@ namespace PropertyManager.Controllers
         {
             var rec = _context.Reccomendations.Where(r => r.Id == id).Include(r => r.Property).FirstOrDefault();
             return View(rec);
+        }
+
+        public IActionResult CreateProperty()
+        {
+            Property property = new Property();
+            return View(property);
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateProperty(Property property)
+        {
+            var Addr = property.Address + ", " + property.City + ", " + property.State + ", " + property.ZipCode;
+            HttpResponseMessage response = await httpClient.GetAsync("https://maps.googleapis.com/maps/api/geocode/json?address=" + Addr + "&key=" + API_Key.APIKEY);
+            var result = await response.Content.ReadAsStringAsync();
+            var parseResult = JObject.Parse(result);
+            var lat = parseResult["results"][0]["geometry"]["location"]["lat"].Value<double>();
+            var lng = parseResult["results"][0]["geometry"]["location"]["lng"].Value<double>();
+            property.lat = lat;
+            property.lng = lng;
+            _context.Properties.Add(property);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

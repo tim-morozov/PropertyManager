@@ -87,16 +87,19 @@ namespace PropertyManager.Controllers
                 tenant.IdentityUser = IdentityUser;
                 var prop = _context.Properties.Where(p => p.Id == tenant.PropertyId).FirstOrDefault();
                 tenant.Property = prop;
-                var tenAddr = tenant.Property.Address + ", " + tenant.Property.City + ", " + tenant.Property.State + ", " + tenant.Property.ZipCode;
-
-                HttpResponseMessage response = await httpClient.GetAsync("https://maps.googleapis.com/maps/api/geocode/json?address=" + tenAddr + "&key=" + API_Key.APIKEY);
-                var result = await response.Content.ReadAsStringAsync();
-                var parseResult = JObject.Parse(result);
-                var lat = parseResult["results"][0]["geometry"]["location"]["lat"].Value<double>();
-                var lng = parseResult["results"][0]["geometry"]["location"]["lng"].Value<double>();
-
-                tenant.Property.lat = lat;
-                tenant.Property.lng = lng;
+                
+                if(tenant.Property.lat == null)
+                {
+                    var tenAddr = tenant.Property.Address + ", " + tenant.Property.City + ", " + tenant.Property.State + ", " + tenant.Property.ZipCode;
+                    HttpResponseMessage response = await httpClient.GetAsync("https://maps.googleapis.com/maps/api/geocode/json?address=" + tenAddr + "&key=" + API_Key.APIKEY);
+                    var result = await response.Content.ReadAsStringAsync();
+                    var parseResult = JObject.Parse(result);
+                    var lat = parseResult["results"][0]["geometry"]["location"]["lat"].Value<double>();
+                    var lng = parseResult["results"][0]["geometry"]["location"]["lng"].Value<double>();
+                    tenant.Property.lat = lat;
+                    tenant.Property.lng = lng;
+                }
+                
 
 
                 _context.Add(tenant);
