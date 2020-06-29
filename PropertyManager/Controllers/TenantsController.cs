@@ -29,7 +29,7 @@ namespace PropertyManager.Controllers
         public IActionResult Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var tenant = _context.Tenants.Where(t => t.IdentityUserId == userId).FirstOrDefault();
+            var tenant = _context.Tenants.Where(t => t.IdentityUserId == userId).Include(t => t.Property).Include(t => t.IdentityUser).FirstOrDefault();
             if(tenant == null)
             {
                 return RedirectToAction(nameof(Create));
