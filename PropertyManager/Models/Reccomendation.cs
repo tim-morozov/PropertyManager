@@ -11,6 +11,7 @@ namespace PropertyManager.Models
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Reccomendations")]
         public string Rec { get; set; }
         [ForeignKey("Property")]
         public int? PropertyId { get; set; }

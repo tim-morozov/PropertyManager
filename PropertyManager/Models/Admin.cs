@@ -15,6 +15,7 @@ namespace PropertyManager.Models
 
         public string Name { get; set; }
 
+        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
         [ForeignKey("IdentityUser")]

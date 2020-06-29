@@ -14,7 +14,9 @@ namespace PropertyManager.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
+        [Display(Name = "Zip Code")]
         public string ZipCode { get; set; }
         public string Type { get; set; }
         [ForeignKey("IdentityUser")]

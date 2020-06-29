@@ -12,6 +12,7 @@ namespace PropertyManager.Models
         [Key]
         public int Id { get; set; }
         public string Issue { get; set; }
+        [Display(Name = "Completed")]
         public bool IsComplete { get; set; }
         [ForeignKey("Tenant")]
         public int TenantId {get; set;}
