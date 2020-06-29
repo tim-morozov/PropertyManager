@@ -192,5 +192,12 @@ namespace PropertyManager.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult ViewWorkOrders(int id)
+        {
+            var allWO = _context.WorkOrders.Select(a => a).Include(a => a.Tenant).ToList();
+            var workOrders = allWO.Where(w => w.Tenant.PropertyId == id).ToList();
+            return View(workOrders);
+        }
     }
 }

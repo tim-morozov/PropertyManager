@@ -191,7 +191,7 @@ namespace PropertyManager.Controllers
 
         public IActionResult ViewRecs()
         {
-            var recs = _context.Reccomendations.Select(r => r).Include(r => r.Property.Name).ToList();
+            var recs = _context.Reccomendations.Select(r => r).Include(r => r.Property).ToList();
             return View(recs);
         }
         

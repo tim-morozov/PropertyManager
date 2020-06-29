@@ -34,12 +34,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.WorkOrderCount)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.lat)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.lng)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -68,15 +62,7 @@
                 @Html.DisplayFor(modelItem => item.WorkOrderCount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.lat)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.lng)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a asp-action="ViewWorkOrders" asp-route-id="@item.Id">View Work Orders</a>
             </td>
         </tr>
 }
@@ -85,8 +71,5 @@
 <div class="row">
     <div class="col">
         <input type="button" value="Work Order Matrix" class="btn btn-secondary" onclick="location.href='@Url.Action("Graph", "Analysts")'" />
-    </div>
-    <div class="col">
-        <input type="button" value="Create Reccomendation" class="btn btn-secondary" onclick="location.href='@Url.Action("CreateRec", "Analysts")'" />
     </div>
 </div>

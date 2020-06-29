@@ -7,9 +7,15 @@
 }
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <h1>Graph</h1>
+<div class="row">
+    <canvas id="myChart"></canvas>
+</div>
 
-<canvas id="myChart"></canvas>
-
+<div class="row">
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
 <script>
     var labels = [];
     var data = [];
