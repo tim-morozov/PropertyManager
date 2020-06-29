@@ -64,7 +64,7 @@ namespace PropertyManager.Controllers
         public IActionResult Create()
         {
             var tenant = new Tenant();
-            List<Property> properties = _context.Properties.Select(p => p).ToList();
+            List<Property> properties = _context.Properties.Where(p => p.IsOccupied == false).ToList();
            
             
             ViewData["IdentityUserId"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id");
@@ -87,7 +87,7 @@ namespace PropertyManager.Controllers
                 tenant.IdentityUser = IdentityUser;
                 var prop = _context.Properties.Where(p => p.Id == tenant.PropertyId).FirstOrDefault();
                 tenant.Property = prop;
-                
+                prop.IsOccupied = true;
                 if(tenant.Property.lat == null)
                 {
                     var tenAddr = tenant.Property.Address + ", " + tenant.Property.City + ", " + tenant.Property.State + ", " + tenant.Property.ZipCode;
@@ -99,9 +99,9 @@ namespace PropertyManager.Controllers
                     tenant.Property.lat = lat;
                     tenant.Property.lng = lng;
                 }
-                
 
 
+                _context.Properties.Update(prop);
                 _context.Add(tenant);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

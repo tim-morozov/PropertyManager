@@ -217,6 +217,7 @@ namespace PropertyManager.Controllers
             var lng = parseResult["results"][0]["geometry"]["location"]["lng"].Value<double>();
             property.lat = lat;
             property.lng = lng;
+            property.IsOccupied = false;
             _context.Properties.Add(property);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));

@@ -14,6 +14,7 @@ namespace PropertyManager.Models
         public string Address { get; set; }
         public string City { get; set; }
         public string State { get; set; }
+        public bool IsOccupied { get; set; }
         [Display(Name = "Zip Code")]
         public string ZipCode { get; set; }
         [Display(Name = "# of Work Orders")]

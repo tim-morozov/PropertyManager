@@ -71,6 +71,7 @@ namespace PropertyManager.Migrations
                     Address = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
                     State = table.Column<string>(nullable: true),
+                    IsOccupied = table.Column<bool>(nullable: false),
                     ZipCode = table.Column<string>(nullable: true),
                     WorkOrderCount = table.Column<int>(nullable: false),
                     lat = table.Column<double>(nullable: true),
@@ -334,27 +335,27 @@ namespace PropertyManager.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "4d027432-2ddb-4480-a9da-9c8e28ca094d", "697c239e-489e-4062-a629-6afac9310cb2", "Admin", "ADMIN" },
-                    { "380dd833-a556-4561-a130-d8dc6887b0d9", "c4d4834d-9d8f-4361-bcb1-1d927e73d88e", "Tenant", "TENANT" },
-                    { "03b63d31-174b-4b63-96e6-bcf5f23d3be8", "fbd66f88-0cdd-4ff0-98eb-f54a34c77856", "Contractor", "CONTRACTOR" },
-                    { "4fc2131f-e2df-4614-8588-ad501cc3ad06", "efd3c4db-200d-4616-a434-b32cfcfb87b8", "Analyst", "ANALYST" }
+                    { "ae92abd2-befb-4466-91f1-ebcd3aa7a37b", "50bf5a4d-da25-4ab5-93e8-d3459dcb2895", "Admin", "ADMIN" },
+                    { "f0e2ea25-4b5c-4952-835e-65d6a18a5e6f", "b6a23917-1713-4eaa-ae0d-c9b857011b2d", "Tenant", "TENANT" },
+                    { "10e1eb88-d94a-4d59-9b37-e4bea747f04f", "2dca019e-6387-4637-bf13-d296cd3058ea", "Contractor", "CONTRACTOR" },
+                    { "d6f903cb-d9c8-440a-a143-1aa086e1f4a6", "b3bd7f5f-c7eb-4780-8c37-4af270f913aa", "Analyst", "ANALYST" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Properties",
-                columns: new[] { "Id", "Address", "City", "Name", "State", "WorkOrderCount", "ZipCode", "lat", "lng" },
+                columns: new[] { "Id", "Address", "City", "IsOccupied", "Name", "State", "WorkOrderCount", "ZipCode", "lat", "lng" },
                 values: new object[,]
                 {
-                    { 1, "2741 N 40th St", "Milwaukee", "House1", "WI", 0, "53210", null, null },
-                    { 2, "1531 N 29th St Unit 1533", "Milwaukee", "House2", "WI", 0, "53208", null, null },
-                    { 3, "4546 N 70th St", "Milwaukee", "House3", "WI", 0, "53218", null, null },
-                    { 4, "1962 S 12th St", "Milwaukee", "House4", "WI", 0, "53204", null, null },
-                    { 5, "4183 N 13th St", "Milwaukee", "House5", "WI", 0, "53209", null, null },
-                    { 6, "4201 W Hawthorne Trace Rd", "Milwaukee", "River Place", "WI", 0, "53209", null, null },
-                    { 7, "441 E Erie St", "Milwaukee", "DoMUS", "WI", 0, "53202", null, null },
-                    { 8, "9220 N 75th St", "Milwaukee", "GlenBrook", "WI", 0, "53223", null, null },
-                    { 9, "1551 N Water St", "Milwaukee", "North End", "WI", 0, "53202", null, null },
-                    { 10, "2634 North Stowell Avenue", "Milwaukee", "Stonewell", "WI", 0, "53211", null, null }
+                    { 1, "2741 N 40th St", "Milwaukee", false, "House1", "WI", 0, "53210", null, null },
+                    { 2, "1531 N 29th St Unit 1533", "Milwaukee", false, "House2", "WI", 0, "53208", null, null },
+                    { 3, "4546 N 70th St", "Milwaukee", false, "House3", "WI", 0, "53218", null, null },
+                    { 4, "1962 S 12th St", "Milwaukee", false, "House4", "WI", 0, "53204", null, null },
+                    { 5, "4183 N 13th St", "Milwaukee", false, "House5", "WI", 0, "53209", null, null },
+                    { 6, "4201 W Hawthorne Trace Rd", "Milwaukee", false, "River Place", "WI", 0, "53209", null, null },
+                    { 7, "441 E Erie St", "Milwaukee", false, "DoMUS", "WI", 0, "53202", null, null },
+                    { 8, "9220 N 75th St", "Milwaukee", false, "GlenBrook", "WI", 0, "53223", null, null },
+                    { 9, "1551 N Water St", "Milwaukee", false, "North End", "WI", 0, "53202", null, null },
+                    { 10, "2634 North Stowell Avenue", "Milwaukee", false, "Stonewell", "WI", 0, "53211", null, null }
                 });
 
             migrationBuilder.CreateIndex(

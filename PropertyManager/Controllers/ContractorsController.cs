@@ -178,7 +178,7 @@ namespace PropertyManager.Controllers
             job.IsComplete = true;
             _context.Update(job);
             _context.Update(tenant);
-            _context.SaveChanges();
+            _context.SaveChanges(); 
             return RedirectToAction(nameof(Index));
         }
     }

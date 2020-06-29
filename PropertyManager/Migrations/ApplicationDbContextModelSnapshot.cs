@@ -48,29 +48,29 @@ namespace PropertyManager.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4d027432-2ddb-4480-a9da-9c8e28ca094d",
-                            ConcurrencyStamp = "697c239e-489e-4062-a629-6afac9310cb2",
+                            Id = "ae92abd2-befb-4466-91f1-ebcd3aa7a37b",
+                            ConcurrencyStamp = "50bf5a4d-da25-4ab5-93e8-d3459dcb2895",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "380dd833-a556-4561-a130-d8dc6887b0d9",
-                            ConcurrencyStamp = "c4d4834d-9d8f-4361-bcb1-1d927e73d88e",
+                            Id = "f0e2ea25-4b5c-4952-835e-65d6a18a5e6f",
+                            ConcurrencyStamp = "b6a23917-1713-4eaa-ae0d-c9b857011b2d",
                             Name = "Tenant",
                             NormalizedName = "TENANT"
                         },
                         new
                         {
-                            Id = "03b63d31-174b-4b63-96e6-bcf5f23d3be8",
-                            ConcurrencyStamp = "fbd66f88-0cdd-4ff0-98eb-f54a34c77856",
+                            Id = "10e1eb88-d94a-4d59-9b37-e4bea747f04f",
+                            ConcurrencyStamp = "2dca019e-6387-4637-bf13-d296cd3058ea",
                             Name = "Contractor",
                             NormalizedName = "CONTRACTOR"
                         },
                         new
                         {
-                            Id = "4fc2131f-e2df-4614-8588-ad501cc3ad06",
-                            ConcurrencyStamp = "efd3c4db-200d-4616-a434-b32cfcfb87b8",
+                            Id = "d6f903cb-d9c8-440a-a143-1aa086e1f4a6",
+                            ConcurrencyStamp = "b3bd7f5f-c7eb-4780-8c37-4af270f913aa",
                             Name = "Analyst",
                             NormalizedName = "ANALYST"
                         });
@@ -354,6 +354,9 @@ namespace PropertyManager.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsOccupied")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -382,6 +385,7 @@ namespace PropertyManager.Migrations
                             Id = 1,
                             Address = "2741 N 40th St",
                             City = "Milwaukee",
+                            IsOccupied = false,
                             Name = "House1",
                             State = "WI",
                             WorkOrderCount = 0,
@@ -392,6 +396,7 @@ namespace PropertyManager.Migrations
                             Id = 2,
                             Address = "1531 N 29th St Unit 1533",
                             City = "Milwaukee",
+                            IsOccupied = false,
                             Name = "House2",
                             State = "WI",
                             WorkOrderCount = 0,
@@ -402,6 +407,7 @@ namespace PropertyManager.Migrations
                             Id = 3,
                             Address = "4546 N 70th St",
                             City = "Milwaukee",
+                            IsOccupied = false,
                             Name = "House3",
                             State = "WI",
                             WorkOrderCount = 0,
@@ -412,6 +418,7 @@ namespace PropertyManager.Migrations
                             Id = 4,
                             Address = "1962 S 12th St",
                             City = "Milwaukee",
+                            IsOccupied = false,
                             Name = "House4",
                             State = "WI",
                             WorkOrderCount = 0,
@@ -422,6 +429,7 @@ namespace PropertyManager.Migrations
                             Id = 5,
                             Address = "4183 N 13th St",
                             City = "Milwaukee",
+                            IsOccupied = false,
                             Name = "House5",
                             State = "WI",
                             WorkOrderCount = 0,
@@ -432,6 +440,7 @@ namespace PropertyManager.Migrations
                             Id = 6,
                             Address = "4201 W Hawthorne Trace Rd",
                             City = "Milwaukee",
+                            IsOccupied = false,
                             Name = "River Place",
                             State = "WI",
                             WorkOrderCount = 0,
@@ -442,6 +451,7 @@ namespace PropertyManager.Migrations
                             Id = 7,
                             Address = "441 E Erie St",
                             City = "Milwaukee",
+                            IsOccupied = false,
                             Name = "DoMUS",
                             State = "WI",
                             WorkOrderCount = 0,
@@ -452,6 +462,7 @@ namespace PropertyManager.Migrations
                             Id = 8,
                             Address = "9220 N 75th St",
                             City = "Milwaukee",
+                            IsOccupied = false,
                             Name = "GlenBrook",
                             State = "WI",
                             WorkOrderCount = 0,
@@ -462,6 +473,7 @@ namespace PropertyManager.Migrations
                             Id = 9,
                             Address = "1551 N Water St",
                             City = "Milwaukee",
+                            IsOccupied = false,
                             Name = "North End",
                             State = "WI",
                             WorkOrderCount = 0,
@@ -472,6 +484,7 @@ namespace PropertyManager.Migrations
                             Id = 10,
                             Address = "2634 North Stowell Avenue",
                             City = "Milwaukee",
+                            IsOccupied = false,
                             Name = "Stonewell",
                             State = "WI",
                             WorkOrderCount = 0,
