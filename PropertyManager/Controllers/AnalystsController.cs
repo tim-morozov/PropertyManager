@@ -195,7 +195,7 @@ namespace PropertyManager.Controllers
        
         public IActionResult ViewWorkOrders(int id)
         {
-            var allWO = _context.WorkOrders.Select(a => a).Include(a => a.Tenant).ToList();
+            var allWO = _context.WorkOrders.Select(a => a).Include(a => a.Tenant).ThenInclude(a => a.Property).ToList();
             var workOrders = allWO.Where(w => w.Tenant.PropertyId == id).ToList();
             return View(workOrders);
         }
