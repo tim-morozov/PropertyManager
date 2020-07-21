@@ -102,7 +102,7 @@ namespace PropertyManager.Controllers
 
 
                 _context.Properties.Update(prop);
-                _context.Add(tenant);
+                _context.Tenants.Add(tenant);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -141,6 +141,15 @@ namespace PropertyManager.Controllers
             {
                 return NotFound();
             }
+            
+            var prop = _context.Properties.Where(p => p.Id == tenant.PropertyId).FirstOrDefault();
+            var oldProp = _context.Properties.Where(o => o.Id == tenant.PropertyId).FirstOrDefault();
+
+            if(prop.Id != oldProp.Id)
+            {
+                oldProp.IsOccupied = false;
+            }
+            
 
             if (ModelState.IsValid)
             {
