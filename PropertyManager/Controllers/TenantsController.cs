@@ -119,13 +119,14 @@ namespace PropertyManager.Controllers
                 return NotFound();
             }
 
-            var tenant = await _context.Tenants.FindAsync(id);
+            var tenant = await _context.Tenants.Where(t => t.Id == id).Include(t => t.IdentityUser).FirstOrDefaultAsync();
+            var properties = _context.Properties.Where(p => p.IsOccupied == false).ToList();
             if (tenant == null)
             {
                 return NotFound();
             }
+            ViewData["Property"] = new SelectList(properties, "Id", "Address");
             ViewData["IdentityUserId"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id", tenant.IdentityUserId);
-            ViewData["PropertyId"] = new SelectList(_context.Set<Property>(), "Id", "Id", tenant.PropertyId);
             return View(tenant);
         }
 
